@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html data-ng-app="uoletAngular">
+    <head>
+        <meta charset="UTF-8">
+        <title>Aprendendo Angular</title>        
+    </head>
+    <body data-ng-controller="UserController as User">
+        <h1>{{ User.titulo }}</h1>
+        <input type="text" data-ng-model="form.name"> 
+        <input type="text" data-ng-model="form.email">
+        <button data-ng-click="User.adicionarUsuario(form)">AdicionarUsuario</button>
+        <table>
+            <tr data-ng-repeat="user in User.users">
+                <td>
+                    {{user.name}}
+                </td> 
+                <td>
+                    {{user.email}} 
+                </td>   
+                <td>
+                    <button data-ng-click="User.removerEmail(user.email)">delete</button>
+                </td>
+            </tr>
+        </table>
+        
+
+
+
+
+
+
+
+
+        <script src="node_modules/angular/angular.min.js"></script>
+        <script>
+            angular.module('uoletAngular', [])
+            .controller('UserController', userController);
+
+            function userController () {
+                var vm = this
+                vm.titulo = "Vinicius AngularJs"
+                vm.users = [
+                    {name: 'eric', email: 'eric@uolet.com'}
+                    ,{name: 'juliana', email: 'juliana@uolet.com'}
+                    ,{name: 'vinicius', email: 'vinicius@uolet.com'}
+                ]
+            }
+            userController.prototype.adicionarUsuario = function (user) {
+                var vm = this
+                vm.users.push(angular.copy(user))
+            }
+            userController.prototype.removerEmail = function(email){
+                var vm = this
+                vm.users = vm.users.filter(function(el){
+                    return el.email !== email
+                })
+            }
+        </script>
+    </body>
+</html>
