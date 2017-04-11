@@ -6,11 +6,12 @@
     </head>
     <body data-ng-controller="UserController as User">
         <h1>{{ User.titulo }}</h1>
-        <input type="text" data-ng-model="form.name"> 
-        <input type="text" data-ng-model="form.email">
-        <button data-ng-click="User.adicionarUsuario(form)">AdicionarUsuario</button>
+        <input type="text" data-ng-model="User.form.name"> 
+        <input type="text" data-ng-model="User.form.email">
+        <button data-ng-click="User.adicionarUsuario(User.form)">Adicionar</button>
+        <button data-ng-click="User.salvarUsuario(User.form)">Save</button>
         <table>
-            <tr data-ng-repeat="user in User.users">
+            <tr data-ng-repeat="user in User.users ">
                 <td>
                     {{user.name}}
                 </td> 
@@ -20,16 +21,11 @@
                 <td>
                     <button data-ng-click="User.removerEmail(user.email)">delete</button>
                 </td>
+                <td>
+                    <button data-ng-click="User.editUser(user, $index)">editar</button>
+                </td>
             </tr>
         </table>
-        
-
-
-
-
-
-
-
 
         <script src="node_modules/angular/angular.min.js"></script>
         <script>
@@ -54,6 +50,22 @@
                 vm.users = vm.users.filter(function(el){
                     return el.email !== email
                 })
+            }
+            userController.prototype.editUser = function (user, index) {
+                var vm = this
+                vm.form = angular.copy(user)
+                vm.form.index = index
+            }
+            userController.prototype.salvarUsuario = function (user){
+                var vm = this
+                var users = vm.users.map(function(el, i){
+                    if (i === user.index){
+                        delete user.index
+                        return user
+                    }
+                    return el
+                })
+                vm.users = angular.copy(users)
             }
         </script>
     </body>
