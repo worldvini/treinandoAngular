@@ -1,4 +1,4 @@
-//codigos exemplos
+//codigos exemplo de inserir geo localização no google maps
 
 var bCantinaPoveirinha = [{
     address: "Rua Lord Clemente Atlee, 70",
