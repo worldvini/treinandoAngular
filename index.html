@@ -27,7 +27,24 @@
             </tr>
         </table>
 
+        <div id="fogo">
+            <input class="form-check-input" type="radio" id="badge-agendada" value="agendada">
+            <input class="form-check-input" type="radio" id="badge-agendada" value="agendada">
+            <span class="badge badge-agendada sortorder">&nbsp;Cancelada&nbsp;</span>
+        </div>
+        
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+        <script>
+            $(document).ready(function(){
+                $('#fogo').click(function(){
+                    $('.form-check-input:checked').addClass('agendada-intern');
+                    $('.form-check-input:not(:checked)').removeClass('agendada-intern');
+                })
+            })            
+        </script>
+
         <script src="node_modules/angular/angular.min.js"></script>
+        
         <script>
             angular.module('uoletAngular', [])
             .controller('UserController', userController);
@@ -68,5 +85,6 @@
                 vm.users = angular.copy(users)
             }
         </script>
+        
     </body>
 </html>
